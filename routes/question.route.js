@@ -5,7 +5,7 @@ const question_route = Router();
 
 question_route.post("/:id", QuestionController.create_questions);
 
-question_route.put("/:id", QuestionController.update_question);
+question_route.put("/", QuestionController.update_question);
 question_route.delete(
   "/:question_id/:reviewe_id",
   QuestionController.delete_question

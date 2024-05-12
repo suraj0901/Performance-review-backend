@@ -7,8 +7,10 @@ class ReviewController {
   static async create_review(request, response) {
     try {
       const review = await ReviewService.create_review(request.body);
+      response.statusMessage = "Performance review added successfully";
       response.send(review);
     } catch (error) {
+      console.error(error);
       response.status(500).send(error.message);
     }
   }
@@ -20,7 +22,7 @@ class ReviewController {
     try {
       const page = +request.query?.page ?? 1;
       const count = +request.query?.count ?? 10;
-      const reviewer_id = +request.query?.reviewer_id ?? 10;
+      const reviewer_id = request.query?.reviewer_id;
       if (reviewer_id) {
         const reviews = await ReviewService.get_all_review_by_reviewer_id({
           id: reviewer_id,
@@ -28,6 +30,7 @@ class ReviewController {
           page,
         });
         response.send(reviews);
+        return;
       }
       const reviews = await ReviewService.get_all_reviews({
         count,
@@ -35,6 +38,7 @@ class ReviewController {
       });
       response.send(reviews);
     } catch (error) {
+      console.error(error);
       response.status(500).json(error);
     }
   }
@@ -91,6 +95,7 @@ class ReviewController {
       const id = request.params.id;
       const review = await ReviewService.delete_review(id);
       if (!review) response.status(404).send("No item found");
+      response.statusMessage = "Review deleted successfully";
       response.status(200).send(review);
     } catch (error) {
       response.status(500).send(error);

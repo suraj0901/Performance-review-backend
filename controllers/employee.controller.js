@@ -8,8 +8,10 @@ class EmployeeController {
     try {
       const employee = new Employee(request.body);
       await employee.save();
+      response.statusMessage = "Employee added successfully";
       response.send(employee);
     } catch (error) {
+      console.error(error);
       response.status(500).send(error);
     }
   }
@@ -49,8 +51,10 @@ class EmployeeController {
         { _id: id },
         request.body
       );
+      response.statusMessage = "Employee updated successfully";
       response.send(employee);
     } catch (error) {
+      console.error(error);
       response.status(500).send(error);
     }
   }
@@ -63,6 +67,7 @@ class EmployeeController {
       const id = request.params.id;
       const employee = await Employee.findOneAndDelete(id);
       if (!employee) response.status(404).send("No item found");
+      response.statusMessage = "Employee deleted successfully";
       response.status(200).send(employee);
     } catch (error) {
       response.status(500).send(error);

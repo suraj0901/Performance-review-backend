@@ -11,6 +11,7 @@ class QuestionController {
         id,
         request.body
       );
+      response.statusMessage = "Questions added successfully";
       response.send(questions);
     } catch (error) {
       console.error(error);
@@ -23,8 +24,8 @@ class QuestionController {
    */
   static async update_question(request, response) {
     try {
-      const id = request.params.id;
-      const review = await QuestionService.update_question(id, request.body);
+      const review = await QuestionService.update_question(request.body);
+      response.statusMessage = "Questions updated successfully";
       response.send(review);
     } catch (error) {
       response.status(500).send(error);
@@ -44,6 +45,7 @@ class QuestionController {
         question_id
       );
       if (!question) response.status(404).send("No item found");
+      response.statusMessage = "Question deleted successfully";
       response.status(200).send(question);
     } catch (error) {
       console.error(error);

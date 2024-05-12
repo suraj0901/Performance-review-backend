@@ -6,7 +6,7 @@ class QuestionService {
     const session = await startSession();
     session.startTransaction();
 
-    const questions = await Question.insertMany(JSON.parse(params.questions), {
+    const questions = await Question.insertMany(params.questions, {
       session,
     });
     const questions_ids = questions.map((item) => item._id);
@@ -29,9 +29,8 @@ class QuestionService {
     return questions;
   }
 
-  static async update_question(id, body) {
-    console.log({ body });
-    const review = await Question.findOneAndUpdate({ _id: id }, body);
+  static async update_question(body) {
+    const review = await Question.findOneAndUpdate({ _id: body._id }, body);
     return review;
   }
 

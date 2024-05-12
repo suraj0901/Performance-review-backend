@@ -5,9 +5,7 @@ class ReviewService {
   static async create_review(params) {
     const session = await startSession();
     session.startTransaction();
-    console.log(params.questions);
-    const questions = JSON.parse(params.questions);
-    const doc = await Question.insertMany(questions, {
+    const doc = await Question.insertMany(params.questions, {
       session,
     });
     const questions_ids = doc.map((item) => item._id);
@@ -23,6 +21,7 @@ class ReviewService {
 
   static async get_all_reviews({ page, count }) {
     const reviews = await Review.find({})
+      .populate("assignee")
       .select("assignee")
       .skip(page * count)
       .limit(count)
@@ -33,6 +32,7 @@ class ReviewService {
 
   static async get_all_review_by_reviewer_id({ id, page, count }) {
     const reviews = await Review.find({ reviewers: id })
+      .populate("assignee")
       .select("assignee")
       .skip(page * count)
       .limit(count)
