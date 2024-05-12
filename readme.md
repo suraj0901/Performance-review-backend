@@ -1,34 +1,4 @@
-## Todo
-
-#### Entity
-
-    [] Employee
-    [] Review
-    [] Feedback
-
-### Employee
-
-    - Name
-    - Gender
-    - Email
-    - Profile
-
-### Review
-
-    - Assignee - Employee
-    - Reviewer - [Employee]
-    - Review -  Question []
-
-### Question
-
-    - title
-    - Feedback []
-
-### Feedback
-
-    - title
-    - Reviewer - Employee
-
-### TODO
-
-    Auto Increament ID for review
+### Todo
+1.Authentication
+2.Authorization
+3.Input valiation
