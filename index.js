@@ -5,6 +5,7 @@ import employeeRoute from "./routes/employee.route.js";
 import feedback_route from "./routes/feedback.route.js";
 import question_route from "./routes/question.route.js";
 import reviewRoute from "./routes/review.route.js";
+import cors from "cors";
 // import upload from "multer";
 
 config();
@@ -13,6 +14,7 @@ await connect_db();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(upload().any())
